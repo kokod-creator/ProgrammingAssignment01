@@ -13,9 +13,17 @@ public class SoftwareTicket extends Ticket {
         this.affectsLogin = affectsLogin;
     }
 
-    public String getSystem() { return system; }
-    public boolean isSecurityIssue() { return securityIssue; }
-    public boolean isAffectsLogin() { return affectsLogin; }
+    public String getSystem() {
+        return system;
+    }
+
+    public boolean isSecurityIssue() {
+        return securityIssue;
+    }
+
+    public boolean isAffectsLogin() {
+        return affectsLogin;
+    }
 
     // -----------------------------------------
     // TODO #3 (Inheritance)
@@ -30,6 +38,13 @@ public class SoftwareTicket extends Ticket {
     @Override
     public int urgencyScore() {
         // TODO #3
-        return -1;
+            int score = getPriority() * 10
+                    + getDaysOpen()
+                    + (securityIssue ? 25 : 0)
+                    + (affectsLogin ? 15 : 0)
+                    + ("VPN".equalsIgnoreCase(system) ? 8 : 0);
+
+            return score;
+        }
     }
-}
+

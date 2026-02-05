@@ -13,9 +13,17 @@ public class HardwareTicket extends Ticket {
         this.affectedUsers = affectedUsers;
     }
 
-    public String getDeviceType() { return deviceType; }
-    public boolean isLabCritical() { return labCritical; }
-    public int getAffectedUsers() { return affectedUsers; }
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public boolean isLabCritical() {
+        return labCritical;
+    }
+
+    public int getAffectedUsers() {
+        return affectedUsers;
+    }
 
     // -----------------------------------------
     // TODO #2 (Inheritance)
@@ -30,6 +38,12 @@ public class HardwareTicket extends Ticket {
     @Override
     public int urgencyScore() {
         // TODO #2
-        return -1;
+        int score = getPriority() * 10
+                + getDaysOpen() * 2
+                + (labCritical ? 20 : 0)
+                + Math.min(affectedUsers, 30)
+                + ("Printer".equalsIgnoreCase(deviceType) ? 5 : 0);
+        return score;
+
     }
 }

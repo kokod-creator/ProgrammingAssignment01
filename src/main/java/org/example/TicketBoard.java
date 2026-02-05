@@ -85,10 +85,26 @@ public class TicketBoard {
     // ---------------------------------------------------------
     public Ticket findByIdBinarySearch(int id) {
         // TODO #5
+        int left = 0;
+        int right = size - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            Ticket midTicket = tickets[mid];
+
+            if (midTicket.getId() == id) {
+                return midTicket;
+            } else if (midTicket.getId() < id) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
         return null;
     }
 
-    // Utility: sort by ID ascending (already implemented)
+        // Utility: sort by ID ascending (already implemented)
     // (Used only to prepare for binary search)
     public void sortByIdAsc() {
         // Simple insertion sort to keep the assignment focused
